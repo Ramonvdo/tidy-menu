@@ -1,0 +1,24 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Lint
+        shell: pwsh
+        run: |
+          Install-Module PSScriptAnalyzer -Scope CurrentUser -Force
+          $issues = Invoke-ScriptAnalyzer -Path . -Recurse -Settings ./PSScriptAnalyzerSettings.psd1 -Severity Warning, Error
+          $issues | Format-Table RuleName, ScriptName, Line, Message -AutoSize -Wrap
+          if ($issues) { exit 1 }
+
+      - name: Install and uninstall round trip
+        shell: powershell
+        run: .\tests\roundtrip.ps1
