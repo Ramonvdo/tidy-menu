@@ -106,6 +106,20 @@ function Test-ClassVerb([string]$Path) {
     return $false
 }
 
+function Test-TerminalOwnEntry {
+    # The packaged Windows Terminal adds its own "Open in Terminal" to the same
+    # menus, unless its handler is blocked. Ours next to it would be a duplicate.
+    $blocked = foreach ($hive in $HKCU, [Microsoft.Win32.Registry]::LocalMachine) {
+        $key = $hive.OpenSubKey('Software\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked')
+        if ($key) { $key.GetValueNames(); $key.Close() }
+    }
+    foreach ($package in Get-AppxPackage -Name 'Microsoft.WindowsTerminal*' -ErrorAction SilentlyContinue) {
+        $manifest = Get-Content -LiteralPath (Join-Path $package.InstallLocation 'AppxManifest.xml') -Raw -ErrorAction SilentlyContinue
+        if ($manifest -match '(?s)FileExplorerContextMenus>.*?Clsid="([0-9a-fA-F-]{36})"' -and "{$($Matches[1])}" -notin $blocked) { return $true }
+    }
+    return $false
+}
+
 function Save-ExeIcon([string]$Exe, [string]$Destination) {
     # Copies the first icon in $Exe into a multi-size .ico, so the menu keeps a
     # sharp icon even when the app's own install path changes on update.
@@ -180,6 +194,7 @@ if (-not $wt) {
 } elseif (-not $claude) {
     $unavailable['OpenClaude'] = 'needs Claude Code (claude) on PATH'
 }
+if ($wt -and (Test-TerminalOwnEntry)) { $unavailable['OpenTerminal'] = 'Windows Terminal already adds its own' }
 
 # --- Choose modules ---------------------------------------------------------
 

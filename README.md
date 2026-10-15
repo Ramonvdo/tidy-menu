@@ -23,7 +23,7 @@ The installer asks about each of the six modules, so you only get the ones you w
 | Full menu | Windows 11 shows the whole right-click menu at once, without the "Show more options" step. | Yes |
 | Hide Windows extras | Removes Restore previous versions, Always available offline, Work Folders, Scan with Microsoft Defender, and the encryption entries. | Yes |
 | Hide app extras | Removes the folder entries that Git for Windows, VLC and Visual Studio add. Offered only if one of them is installed. | No |
-| Open in Terminal | Opens Windows Terminal in the folder you right-clicked, or in the folder you're looking at. | Yes |
+| Open in Terminal | Opens Windows Terminal in the folder you right-clicked, or in the folder you're looking at. Offered only if Windows Terminal doesn't already add its own, so you don't get two. | Yes |
 | Open Claude Code here | Opens Windows Terminal in that folder and starts [Claude Code](https://claude.com/claude-code). Offered only if `claude` is on your PATH. | Yes |
 | Quick Clean | A desktop submenu that empties the Recycle Bin, clears caches, or deletes temp files older than 14 days. | Yes |
 
