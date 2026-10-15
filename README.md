@@ -10,6 +10,10 @@
   <a href="https://github.com/Ramonvdo/tidy-menu/actions/workflows/ci.yml"><img src="https://github.com/Ramonvdo/tidy-menu/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
 </p>
 
+<p align="center">
+  <img src=".github/assets/menu.png" width="640" alt="The desktop right-click menu with the Quick Clean submenu open" />
+</p>
+
 ## What you get
 
 The installer asks about each of the six modules, so you only get the ones you want.
