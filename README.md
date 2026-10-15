@@ -29,15 +29,15 @@ The installer asks about each of the six modules, so you only get the ones you w
 
 ## Install
 
-Paste this into PowerShell:
+1. Download **Source code (zip)** from the [latest release](https://github.com/Ramonvdo/tidy-menu/releases/latest) and extract it.
+2. Double-click `install.cmd` in the extracted folder. If Windows warns that the file came from the internet, choose **Run** (or **More info**, then **Run anyway**).
+3. Answer yes or no for each module. The window stays open at the end so you can read what was installed.
 
-```powershell
-irm https://raw.githubusercontent.com/Ramonvdo/tidy-menu/main/get.ps1 | iex
-```
+`install.cmd` starts `install.ps1` with PowerShell's execution policy bypassed for that one run, so you don't have to change any settings.
 
-It downloads the latest release, asks yes or no for each module, and installs for your Windows user.
+There's no paste-into-PowerShell installer, on purpose. Microsoft Defender can flag a command that downloads a script and runs it straight away, and report it as a trojan.
 
-If you'd rather read the code before running it:
+If you prefer a terminal, clone the repo and run the installer. In a folder extracted from the zip, only the last line is needed:
 
 ```powershell
 git clone https://github.com/Ramonvdo/tidy-menu.git
